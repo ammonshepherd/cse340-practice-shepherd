@@ -29,6 +29,18 @@ app.get('/', (req, res) => {
     res.send(`Hello, ${name}!`);
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/views/home.html'));
+})
+
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/views/about.html'));
+})
+
+app.get('/products', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/views/products.html'));
+})
+
 /**
  * Start server on specified port
  */
