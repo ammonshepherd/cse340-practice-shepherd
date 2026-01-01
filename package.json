@@ -1,6 +1,7 @@
 {
   "name": "cse340-practice-shepherd",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^5.2.1"
   },
   "type": "module",
