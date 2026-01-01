@@ -37,6 +37,16 @@ app.get('/products', (req, res) => {
     res.sendFile(path.join(__dirname, 'src/views/products.html'));
 })
 
+// Send file using ABSOLUTE path
+app.get('/test-1', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/views/test-1.html'));
+})
+
+// Send file using RELATIVE path
+app.get('/test-2', (req, res) => {
+    res.sendFile('test-2.html', {root: path.join(__dirname, '/src/views')});
+})
+
 /**
  * Start server on specified port
  */
