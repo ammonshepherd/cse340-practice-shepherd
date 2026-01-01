@@ -45,15 +45,28 @@ app.get('/products', (req, res) => {
     res.render('products', {title});
 })
 
-// Send file using ABSOLUTE path
+// CHALLENGE: Send file using ABSOLUTE path
 app.get('/test-1', (req, res) => {
     res.sendFile(path.join(__dirname, 'src/views/test-1.html'));
 })
 
-// Send file using RELATIVE path
+// CHALLENGE: Send file using RELATIVE path
 app.get('/test-2', (req, res) => {
     res.sendFile('test-2.html', {root: path.join(__dirname, '/src/views')});
 })
+
+// CHALLENGE: Add a student EJS page
+app.get('/student', (req, res) => {
+    const title = 'Student Page';
+    const student = {
+        name: "Billy",
+        id: 42,
+        email: "billy@bob.com",
+        address: "1234 Wompty St., Brismacity, ST"
+    } 
+    res.render('student', {title, student});
+})
+
 
 /**
  * Start server on specified port
