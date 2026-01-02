@@ -28,6 +28,46 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 /**
+ * Global template variables middleware
+ * 
+ * Makes common variable available to all EJS templates
+ * without having to pass them individually from each
+ * route handler
+ * 
+ */
+app.use((req, res, next) => {
+    // Make NODE_ENV available to all templates
+    res.locals.NODE_ENV = NODE_ENV.toLowerCase() || 'production';
+
+    // Continue to the next middleware or route handler
+    next();
+})
+
+/**
+ * Auto reload browser
+ * When in development mode, start a WebSocket server
+ * for live reloading the browser
+ */
+if (NODE_ENV.includes('dev')) {
+    const ws = await import('ws');
+
+    try {
+        const wsPort = parseInt(PORT) + 1;
+        const wsServer = new ws.WebSocketServer({ port: wsPort });
+
+        wsServer.on('listening', () => {
+            console.log(`WebSocket server is running on port ${wsPort}`);
+        });
+
+        wsServer.on('error', (error) => {
+            console.error('WebSocket server error:', error);
+        });
+    } catch (error) {
+        console.error('Failed to start WebSocket server: ', error);
+    }
+}
+
+/**
  * Routes
  */
 app.get('/', (req, res) => {
@@ -66,7 +106,6 @@ app.get('/student', (req, res) => {
     } 
     res.render('student', {title, student});
 })
-
 
 /**
  * Start server on specified port
