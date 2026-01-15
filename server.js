@@ -54,12 +54,15 @@ const __dirname = path.dirname(__filename);
 
 // Setup the Express Server
 const app = express();
-/**
 
+
+/**
  * Express Middleware
  */
+
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
 
@@ -81,6 +84,66 @@ app.use((req, res, next) => {
     // Continue to the next middleware or route handler
     next();
 })
+
+
+
+app.use((req, res, next) => {
+    // Skip logging for routes that start with /. (like /.well-known)
+    if (!req.path.startsWith('/.')) {
+        console.log(`${req.method} ${req.url}`);
+    }
+    next(); // Pass control to the next middleware or route
+})
+
+// Set the current year in a local variable
+app.use((req, res, next) => {
+    res.locals.currentYear = new Date().getFullYear();
+    next();
+})
+
+// Time based greeting
+app.use((req, res, next) => {
+    const currentHour = new Date().getHours();
+
+    if (currentHour < 12) {
+        res.locals.greeting = "Good Morning";
+    } else if (currentHour < 17 ) {
+        res.locals.greeting = "Good Afternoon";
+    } else {
+        res.locals.greeting = "Good Evening";
+    }
+    next();
+})
+
+// change background color
+app.use((req, res, next) => {
+    const themes = ['blue-theme', 'green-theme', 'red-theme'];
+
+    const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+    res.locals.bodyClass = randomTheme;
+    next();
+})
+
+// Global middleware to share query parameters with templates
+app.use((req, res, next) => {
+    res.locals.queryParams = req.query || {};
+    next();
+})
+
+// Route-specific middleware that sets custom headers
+const addDemoHeaders = (req, res, next) => {
+    res.set('X-Demo-Page', 'true');
+    res.set('X-Middleware-Demo', 'To Demo with love');
+
+    next();
+}
+app.get('/demo', addDemoHeaders, (req, res) => {
+    res.render('demo', {
+        title: 'Middleware Demo Page'
+    });
+})
+
+
 
 /**
  * Auto reload browser

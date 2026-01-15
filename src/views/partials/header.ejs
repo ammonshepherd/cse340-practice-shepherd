@@ -23,12 +23,16 @@
         </script>
     <% } %>
 </head>
-<body>
+<body class="<%= bodyClass %>">
+    <div id="greeting">
+        <%- greeting %>
+    </div>
     <header>
         <nav>
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/catalog">Course Catalog</a>
             <a href="/products">Products</a>
+            <a href="/demo">Middleware Demo</a>
         </nav>
     </header>

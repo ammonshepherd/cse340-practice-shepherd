@@ -17,6 +17,14 @@
             </div>
         </div>
 
+        <div class="sort-message">
+        <% if (queryParams.sort) { %>
+            <p>Currently sorted by: <%= queryParams.sort %></p>
+        <% } else { %>
+            <p>Default sorting of 'time' applied.</p>
+        <% } %>
+        </div>
+
         <div class="section-list">
             <% course.sections.forEach(section => { %>
                 <div class="section-card">
