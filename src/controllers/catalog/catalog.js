@@ -35,7 +35,6 @@ const courseDetailPage = (req, res, next) => {
 
 // Show courses by department
 const departmentPage = (req, res, next) => {
-    const deptName = req.params.deptName;
     const departments = getCoursesByDepartment();
 
     if(!departments) {
@@ -45,7 +44,7 @@ const departmentPage = (req, res, next) => {
     }
 
     res.render('departments', {
-        title: `${deptName}`,
+        title: 'Departments',
         departments: departments,
     })
 }
