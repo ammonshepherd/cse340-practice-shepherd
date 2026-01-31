@@ -37,7 +37,6 @@ app.set('views', path.join(__dirname, 'src/views'));
  */
 app.use(addLocalVariables);
 
-
 // Routes
 app.use('/', routes);
 
@@ -45,6 +44,7 @@ app.use('/', routes);
 // Error handling
 app.use(catchAll);
 app.use(globalErrorHandler);
+
 
 
 /**
