@@ -18,6 +18,7 @@ const globalErrorHandler = (err, req, res, next) => {
     const status = err.status || 500;
     const template = status === 404 ? '404' : '500';
     // Prepare data for the template
+    const NODE_ENV = res.locals.NODE_ENV;
     const context = {
         title: status === 404 ? 'Page Not Found' : 'Server Error',
         error: NODE_ENV === 'production' ? 'An error occurred' : err.message,
