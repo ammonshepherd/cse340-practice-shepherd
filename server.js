@@ -7,13 +7,15 @@ import { fileURLToPath } from 'url';
 
 // Import MVC Components
 import routes from './src/controllers/routes.js';
+import { addLocalVariables } from './src/middleware/global.js';
 import {catchAll, globalErrorHandler} from './src/controllers/error-handlers.js';
-import { addLocalVariables, reloadBrowser } from './src/middleware/global.js';
+// import { addLocalVariables, reloadBrowser } from './src/middleware/global.js';
 
 /**
  * Configuration Variables
  */
-const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
+const NODE_ENV = process.env.NODE_ENV || 'production';
+console.log(NODE_ENV);
 const PORT = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,7 +50,7 @@ app.use(globalErrorHandler);
 
 
 // Auto reload browser when in development mode
-app.use(reloadBrowser);
+// app.use(reloadBrowser);
 
 
 /**
