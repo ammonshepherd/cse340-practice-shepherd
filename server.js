@@ -4,6 +4,7 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { setupDatabase, testConnection } from './src/models/setup.js';
 
 const NODE_ENV = process.env.NODE_ENV || 'production';
 // Import MVC Components
@@ -69,6 +70,8 @@ if (NODE_ENV.includes('dev')) {
 /**
  * Start server on specified port
  */
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+    await setupDatabase();
+    await testConnection();
     console.log(`Server is running on http://127.0.0.1:${PORT}`);
 })
