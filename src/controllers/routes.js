@@ -3,6 +3,7 @@ import { addDemoHeaders } from '../middleware/demo/headers.js';
 import { homePage, aboutPage, demoPage, testErrorPage } from './index.js';
 import { catalogPage, courseDetailPage } from './catalog/catalog.js';
 import { facultyListPage, facultyDetailPage } from './faculty/faculty.js';
+import contactRoutes from './forms/contact.js';
 
 // Create a new router instance
 const router = Router();
@@ -15,6 +16,13 @@ router.use('/catalog', (req, res, next) => {
 
 router.use('/faculty', (req, res, next) => {
     res.addStyle('<link rel="stylesheet" href="/css/faculty.css">');
+    next();
+});
+
+// Add contact-specific styles to all contact routes
+router.use('/contact', (req, res, next) => {
+    res.addStyle('<link rel="stylesheet" href="/css/contact.css">');
+    res.addStyle('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=delete" />');
     next();
 });
 
@@ -32,6 +40,9 @@ router.get('/catalog/:slugId', courseDetailPage);
 // Faculty routes
 router.get('/faculty', facultyListPage);
 router.get('/faculty/:facultySlug', facultyDetailPage);
+
+// Contact form routes
+router.use('/contact', contactRoutes);
 
 // Demo page with special middleware
 router.get('/demo', addDemoHeaders, demoPage);
