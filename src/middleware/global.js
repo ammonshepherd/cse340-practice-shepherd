@@ -63,6 +63,11 @@ const setHeadAssetsFunctionality = (res) => {
  * Templates can access these values but are not required to use them.
  */
 const addLocalVariables = (req, res, next) => {
+    // Convenience variable for UI state based on session state
+    res.locals.isLoggedIn = false;
+    if (req.session && req.session.user) {
+        res.locals.isLoggedIn = true;
+    }
     // Set current year for use in templates
     res.locals.currentYear = new Date().getFullYear();
 
