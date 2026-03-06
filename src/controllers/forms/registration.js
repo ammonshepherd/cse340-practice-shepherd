@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import { emailExists, saveUser, getAllUsers } from '../../models/forms/registration.js';
+import { requireLogin } from '../../middleware/auth.js';
 
 const router = Router();
 
@@ -127,6 +128,6 @@ router.post('/', registrationValidation, processRegistration);
 /**
  * GET /register/list - Display all registered users
  */
-router.get('/list', showAllUsers);
+router.get('/list', requireLogin, showAllUsers);
 
 export default router;

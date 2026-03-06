@@ -28,15 +28,27 @@
     
     <header>
         <nav>
+            <!-- Always visible links -->
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/catalog">Course Catalog</a>
-            <a href="/departments">Department Catalog</a>
             <a href="/faculty">Faculty Directory</a>
             <a href="/contact">Contact</a>
-            <a href="/contact/responses">Contact Responses</a>
-            <a href="/register">Register</a>
-            <a href="/register/list">Users</a>
+            <a href="/demo">Middleware Demo</a>
+
+            <% if (isLoggedIn) { %>
+                <!-- Only visible when logged in-->
+                <a href="/dashboard">Dashboard</a>
+                <a href="/register/list">All Users</a>
+                <a href="/contact/responses">Contact Responses</a>
+                <a href="/logout">Logout</a>
+            <% } %>
+
+            <% if (!isLoggedIn) { %>
+                <!-- Only visible when NOT logged in-->
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            <% } %>
         </nav>
     </header>
 

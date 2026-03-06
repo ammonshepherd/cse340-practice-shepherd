@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import { createContactForm, getAllContactForms, deleteResponse } from '../../models/forms/contact.js';
+import { requireLogin } from '../../middleware/auth.js';
 
 const router = Router();
 
@@ -112,11 +113,11 @@ router.post('/',
 /**
  * GET /contact/responses - Display all contact form submissions
  */
-router.get('/responses', showContactResponses);
+router.get('/responses', requireLogin, showContactResponses);
 
 /**
  * GET /contact/responses/delete/:id - Delete selected id
  */
-router.get('/responses/delete/:responseId', deleteContactResponse);
+router.get('/responses/delete/:responseId', requireLogin, deleteContactResponse);
 
 export default router;
