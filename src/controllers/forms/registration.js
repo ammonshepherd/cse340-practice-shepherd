@@ -51,25 +51,22 @@ const processRegistration = async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        // TODO: Log validation errors to console for debugging
-        // TODO: Redirect back to /register
-        console.log("Error with registration:", errors);
-        res.redirect('/register');
-        return;
+        errors.array().forEach(error => {
+            req.flash('error', error.msg);
+        });
+        return res.redirect('/register');
     }
 
-    // Extract validated data from request body
-    // TODO: Destructure name, email, password from req.body
-    const { name, email, password } = req.body;
-
     try {
+        // Extract validated data from request body
+        const { name, email, password } = req.body;
+
         // Check if email already exists in database
         let existing = await emailExists(email);
 
         if (existing) {
-            console.log("Email already registered.");
-            res.redirect('/register');
-            return;
+            req.flash('warning', 'Email already exists.');
+            return res.redirect('/register');
         }
 
         // Hash the password before saving to database
@@ -79,16 +76,15 @@ const processRegistration = async (req, res) => {
         let userResponse = await saveUser(name, email, hashedPassword);
 
         if (userResponse){
-            console.log("Registration successful.");
-            res.redirect('/register/list');
-            return
+            req.flash('success', "Registration completed successfully.")
+            return res.redirect('/login');
         } else {
-            console.log("Error sending registration to database.");
-            res.redirect('/register/list');
-            return
+            req.flash('error', 'Registration could not be completed. Please try again later.')
+            return res.redirect('/register');
         }
     } catch (error) {
         console.log("Error with registration.", error);
+            req.flash('error', 'Registration could not be completed. Please try again later.')
         res.redirect('/register');
         return;
     }
