@@ -84,9 +84,8 @@ const processRegistration = async (req, res) => {
         }
     } catch (error) {
         console.log("Error with registration.", error);
-            req.flash('error', 'Registration could not be completed. Please try again later.')
-        res.redirect('/register');
-        return;
+        req.flash('error', 'Registration could not be completed. Please try again later.')
+        return res.redirect('/register');
     }
 };
 

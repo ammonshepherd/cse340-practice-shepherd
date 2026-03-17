@@ -83,4 +83,7 @@ body {
             color: #0c5460;
         }
     }
+    .delete-me {
+        float: right;
+    }
 }

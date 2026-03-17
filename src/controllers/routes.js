@@ -29,7 +29,6 @@ router.use('/faculty', (req, res, next) => {
 // Add contact-specific styles to all contact routes
 router.use('/contact', (req, res, next) => {
     res.addStyle('<link rel="stylesheet" href="/css/contact.css">');
-    res.addStyle('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=delete" />');
     next();
 });
 

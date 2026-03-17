@@ -11,6 +11,7 @@ const requireLogin = (req, res, next) => {
         next();
     } else {
         // User is not authenticated - redirect to login
+        req.flash('warning', 'Unauthorized access requested. Please log in to access that page.');
         res.redirect('/login');
     }
 };

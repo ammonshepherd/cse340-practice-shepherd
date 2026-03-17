@@ -53,20 +53,19 @@
     </header>
 </header>
 
+<main>
 <% 
     const messages = flash();
     const hasMessages = Object.values(messages).some(arr => arr.length > 0);
-%>
-
-<% if (hasMessages) { %>
+if (hasMessages) { %>
     <div class="flash-messages">
         <% Object.keys(messages).forEach(type => { %>
             <% messages[type].forEach(message => { %>
-                <div class="flash <%= type %>">
+                <div class="flash <%= type %>" onclick="this.remove()">
                     <%= message %>
+                    <span class="delete-me">X</span>
                 </div>
             <% }); %>
         <% }); %>
     </div>
 <% } %>
-    <main>

@@ -3,5 +3,11 @@
     <footer>
         <p>&copy; <%= currentYear %> My Express App.</p>
     </footer>
+    <script>
+        const elementToRemove = document.getElementById('delete-message');
+        if (elementToRemove) { // Check if the element was found
+            elementToRemove.remove();
+        }
+    </script>
 </body>
 </html>

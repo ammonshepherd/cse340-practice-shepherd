@@ -111,7 +111,7 @@ const processLogout = (req, res) => {
         res.clearCookie('connect.sid');
 
         // Redirect the user to the home page
-        res.redirect('/');
+        return res.redirect('/');
     });
 };
 
