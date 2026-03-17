@@ -72,14 +72,13 @@ const deleteContactResponse = async (req, res) => {
     let responseId = req.params.responseId;
 
     try {
-        rows = deleteResponse(responseId);
-        console.log(rows);
-        console.log("response deleted");
+        deleteResponse(responseId);
+        req.flash('success', "Response deleted.");
     } catch (error) {
         console.log("Error deleting response", error);
     }
 
-    res.redirect('/contact');
+    res.redirect('/contact/responses');
 };
 
 /**
