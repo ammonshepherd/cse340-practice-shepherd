@@ -7,6 +7,7 @@ import registrationRoutes from './forms/registration.js';
 import loginRoutes from './forms/login.js';
 import { processLogout, showDashboard } from './forms/login.js';
 import { requireLogin } from '../middleware/auth.js';
+import { contactValidation, registrationValidation, loginValidation, editValidation } from '../middleware/validation/forms.js';
 
 // Create a new router instance
 import { Router } from 'express';
